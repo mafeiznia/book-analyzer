@@ -25,16 +25,17 @@ pip install -r requirements.txt
 
 # ۵. کپی .env
 Copy-Item .env.example .env
-# سپس .env را ویرایش و OPENROUTER_API_KEY را پر کنید
+# سپس .env را ویرایش و کلیدهای API را پر کنید
 
-# ۶. دانلود فونت Vazirmatn
-# از github.com/rastikerdar/vazirmatn/releases
-# دو فایل Vazirmatn-Regular.ttf و Vazirmatn-Bold.ttf را در assets\fonts\ بریزید
+# ۶. فونت Vazirmatn در assets\fonts\ موجود است
 
 # ۷. اجرا
 python app.py
-ساختار پوشه
-text
+```
+
+## ساختار پوشه
+
+```text
 book-analyzer/
 ├── app.py                    # نقطه ورود
 ├── requirements.txt
@@ -52,7 +53,8 @@ book-analyzer/
 │   │   └── settings.py       # Providerها
 │   └── components/
 │       ├── log_panel.py      # لاگ زنده
-│       └── result_view.py    # نمایش تحلیل
+│       ├── result_view.py    # نمایش تحلیل
+│       └── about_dialog.py   # دیالوگ درباره
 │
 ├── core/
 │   ├── analyzer.py           # هماهنگ‌کننده
@@ -62,6 +64,8 @@ book-analyzer/
 │   ├── prompt_builder.py     # ساخت پرامپت
 │   ├── schemas.py            # Pydantic
 │   ├── bilingual.py          # توابع دوزبانه
+│   ├── about_info.py         # متادیتای برنامه
+│   ├── settings.py           # تنظیمات کاربر
 │   └── prompts/
 │       ├── analysis.txt
 │       └── translation.txt
@@ -71,6 +75,7 @@ book-analyzer/
 │   ├── _openai_compatible.py
 │   ├── openrouter.py
 │   ├── openai.py
+│   ├── groq.py
 │   ├── deepseek.py
 │   ├── glm.py
 │   ├── gemini.py
@@ -93,55 +98,59 @@ book-analyzer/
 │   └── log_bus.py            # انتشار لاگ
 │
 ├── assets/
-│   └── fonts/
-│       ├── Vazirmatn-Regular.ttf
-│       └── Vazirmatn-Bold.ttf
+│   ├── fonts/                # Vazirmatn
+│   ├── logo.png
+│   └── icon.ico
 │
 ├── data/
-│   └── projects.db           # SQLite
+│   └── projects.db           # SQLite (خودکار ساخته می‌شود)
 │
 ├── output/                   # خروجی پروژه‌ها
 │
-├── docs/                     # این پوشه
+├── docs/                     # مستندات
 │
-└── test_*.py                 # اسکریپت‌های تست دستی
-قواعد کد
-۱. جداسازی لایه‌ها
-ui/ هرگز مستقیماً به DB نمی‌نویسد — همیشه از storage/repositories.py
+├── installer/                # Inno Setup
+│
+└── test/                     # تست‌های دستی
+```
 
-core/ هرگز به UI import نمی‌کند
+## قواعد کد
 
-providers/ هرگز به core/ import نمی‌کند
+### ۱. جداسازی لایه‌ها
+- `ui/` هرگز مستقیماً به DB نمی‌نویسد — همیشه از `storage/repositories.py`
+- `core/` هرگز به UI import نمی‌کند
+- `providers/` هرگز به `core/` import نمی‌کند
 
-۲. لاگ
-همیشه از log_bus.emit(level, message, technical=None) استفاده کنید:
+### ۲. لاگ
+همیشه از `log_bus.emit(level, message, technical=None)` استفاده کنید:
+- `level="simple"` — برای کاربر
+- `level="technical"` — جزئیات فنی (با toggle نمایش)
 
-level="simple" — برای کاربر
+### ۳. Async
+- توابع async با `async def`
+- در UI با `page.run_task(fn, ...)`
+- توابع همگام را با `asyncio.to_thread` async کنید
 
-level="technical" — جزئیات فنی (در .env toggle نمایش)
+### ۴. دوزبانه
+- **هرگز** رشته ساده در `schemas.py` نگذارید — همیشه `Bilingual`
+- در UI/MD: `pick(v, "fa")`
+- در JSON/پرامپت: `flatten_for_lang(analysis, "en")`
 
-۳. Async
-توابع async با async def
+### ۵. مسیرها
+- همه‌جا `pathlib.Path` استفاده کنید
+- برای سازگاری با frozen mode:
+  ```python
+  if getattr(sys, "frozen", False):
+      base = Path(sys.executable).parent
+  else:
+      base = Path(__file__).parent.parent
+  ```
 
-در UI با page.run_task(fn, ...)
+## افزودن Provider جدید
 
-توابع همگام را با asyncio.to_thread async کنید
+### مثال: افزودن Together AI
 
-۴. دوزبانه
-هرگز رشته ساده در schemas.py نگذارید — همیشه Bilingual
-
-در UI/MD: pick(v, "fa")
-
-در JSON/پرامپت: flatten_for_lang(analysis, "en")
-
-۵. مسیرها
-همه‌جا pathlib.Path استفاده کنید، نه رشته
-
-مسیرهای نسبی از Path(__file__).parent بسازید
-
-افزودن Provider جدید
-مثال: افزودن Together AI
-python
+```python
 # providers/together.py
 from providers._openai_compatible import OpenAICompatibleProvider
 
@@ -155,42 +164,56 @@ class TogetherProvider(OpenAICompatibleProvider):
         "meta-llama/Llama-3.3-70B-Instruct-Turbo",
         "Qwen/Qwen2.5-72B-Instruct-Turbo",
     ]
-سپس در providers/registry.py:
+```
 
-python
+سپس در `providers/registry.py`:
+
+```python
 from providers.together import TogetherProvider
 
 BUILTIN = {
     ...
     TogetherProvider.name: TogetherProvider,
 }
-و در .env:
+```
 
-env
+و در `.env`:
+
+```env
 TOGETHER_API_KEY=...
-افزودن بخش جدید به تحلیل
-۱. فیلد جدید در core/schemas.py (نوع Bilingual)
-۲. توضیح در core/prompts/analysis.txt
-۳. نمایش در ui/components/result_view.py (با pick(v, "fa"))
-۴. نمایش در exporters/to_md.py
+```
 
-تست دستی هر ماژول
-ماژول	دستور
-schemas	python -c "from core.schemas import Analysis; print('OK')"
-crawler	python test_crawler.py
-search	python test_search.py
-collector	python test_collector.py
-analyzer	python test_analyzer.py
-providers	در UI ← تنظیمات ← تست اتصال
-عیب‌یابی سریع
-خطا	راه‌حل
-ModuleNotFoundError: No module named 'core'	__init__.py را در پوشه‌ها بررسی کنید
-SyntaxError: New-Item ...	دستور PowerShell را داخل فایل پایتون گذاشته‌اید
-OSError: cannot load library 'gobject-2.0-0'	GTK نصب نیست (نگاه کنید TROUBLESHOOTING.md)
-RateLimitError: 429	مدل رایگان rate-limit شده، مدل دیگر انتخاب کنید
-SSLEOFError هنگام pip install	از آینه PyPI استفاده کنید
-انتشار در GitHub
-powershell
+## افزودن بخش جدید به تحلیل
+
+۱. فیلد جدید در `core/schemas.py` (نوع `Bilingual`)
+۲. توضیح در `core/prompts/analysis.txt`
+۳. نمایش در `ui/components/result_view.py` (با `pick(v, "fa")`)
+۴. نمایش در `exporters/to_md.py`
+
+## تست دستی هر ماژول
+
+| ماژول | دستور |
+|---|---|
+| schemas | `python -c "from core.schemas import Analysis; print('OK')"` |
+| crawler | `python -m test.test_crawler` |
+| search | `python -m test.test_search` |
+| collector | `python -m test.test_collector` |
+| analyzer | `python -m test.test_analyzer` |
+| providers | در UI ← تنظیمات ← تست اتصال |
+
+## عیب‌یابی سریع
+
+| خطا | راه‌حل |
+|---|---|
+| `ModuleNotFoundError: No module named 'core'` | `__init__.py` را در پوشه‌ها بررسی کنید |
+| `SyntaxError: New-Item ...` | دستور PowerShell را داخل فایل پایتون گذاشته‌اید |
+| `OSError: cannot load library 'gobject-2.0-0'` | GTK نصب نیست (نگاه کنید TROUBLESHOOTING.md) |
+| `RateLimitError: 429` | مدل رایگان rate-limit شده، مدل دیگر انتخاب کنید |
+| `SSLEOFError` هنگام pip install | از آینه PyPI استفاده کنید |
+
+## انتشار در GitHub
+
+```powershell
 git init
 git add .
 git commit -m "Initial commit"
@@ -198,33 +221,42 @@ git commit -m "Initial commit"
 # مطمئن شوید .env و data/ و output/ در .gitignore هستند
 git remote add origin https://github.com/<username>/book-analyzer.git
 git push -u origin main
-ساخت نسخه جدید
-powershell
-# ۱. بروزرسانی نسخه در docs/CHANGELOG.md
+```
+
+## ساخت نسخه جدید
+
+```powershell
+# ۱. بروزرسانی نسخه در core/about_info.py و docs/CHANGELOG.md
 # ۲. اگر وابستگی جدید اضافه شد: pip freeze > requirements.txt
 # ۳. commit و tag:
-git tag -a v0.2.0 -m "Release 0.2.0"
-git push origin v0.2.0
-بسته‌بندی (گام ۱۲)
-راهنمای کامل در docs/HANDOFF.md.
+git tag -a v1.0.1 -m "Release 1.0.1"
+git push origin v1.0.1
+```
 
-نکات Python 3.12
-جنریک‌ها: list[int] به‌جای List[int]
+## بسته‌بندی برای انتشار
 
-Union: str | None به‌جای Optional[str]
+```powershell
+# build خودکار + پاکسازی
+.\build_release.ps1
 
-Pattern matching: برای switch case پیچیده
+# ساخت Installer
+cd installer
+iscc BookAnalyzer_x64.iss
+```
 
-نیم‌فاصله در ویندوز: از کاراکتر ZWNJ (\u200c) در رشته‌های فارسی
+راهنمای کامل در `docs/HANDOFF.md`.
 
-نکات Flet
-page.run_task(fn, ...) برای توابع async
+## نکات Python 3.12
 
-page.open(dialog) برای نمایش دیالوگ
+- **جنریک‌ها:** `list[int]` به‌جای `List[int]`
+- **Union:** `str | None` به‌جای `Optional[str]`
+- **Pattern matching:** برای switch case پیچیده
+- **نیم‌فاصله در ویندوز:** از کاراکتر ZWNJ (`\u200c`) در رشته‌های فارسی
 
-page.overlay.append(...) قبل از page.update() برای عناصر شناور
+## نکات Flet
 
-page.update() بعد از هر تغییر UI (یا control.update() برای صرفه‌جویی)
-
-ft.ListView برای ناحیه اسکرول (روان‌تر از ft.Column + scroll)
-
+- **`page.run_task(fn, ...)`** برای توابع async
+- **`page.open(dialog)`** برای نمایش دیالوگ
+- **`page.overlay.append(...)`** قبل از `page.update()` برای عناصر شناور
+- **`page.update()`** بعد از هر تغییر UI
+- **`ft.ListView`** برای ناحیه اسکرول
