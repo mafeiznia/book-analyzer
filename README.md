@@ -6,6 +6,8 @@
 ![پایتون](https://img.shields.io/badge/python-3.12-blue)
 ![مجوز](https://img.shields.io/badge/license-MIT-green)
 
+![صفحه اصلی](docs/screenshots/main.png)
+
 ---
 
 ## معرفی
