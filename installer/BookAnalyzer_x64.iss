@@ -1,6 +1,6 @@
 ; Book Analyzer — Inno Setup Script
 #define MyAppName "Book Analyzer"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Mahmoud Aharpour Feiznia"
 #define MyAppURL "https://yadoto.ir"
 #define MyAppExeName "BookAnalyzer.exe"

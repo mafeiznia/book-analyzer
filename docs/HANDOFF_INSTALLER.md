@@ -25,7 +25,7 @@ project/
 ├── installer/
 │   ├── BookAnalyzer_x64.iss        ← اسکریپت Inno Setup
 │   └── Output/                     ← خروجی installer
-│       └── BookAnalyzer_Setup_x64_v1.0.0.exe
+│       └── BookAnalyzer_Setup_x64_v1.1.0.exe
 ├── assets/
 │   └── icon.ico                    ← آیکن برنامه
 ├── LICENSE                         ← متن مجوز
@@ -41,7 +41,7 @@ project/
 ```iss
 ; Book Analyzer - Inno Setup Script
 #define MyAppName "Book Analyzer"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Mahmoud Aharpour Feiznia"
 #define MyAppURL "https://yadoto.ir"
 #define MyAppExeName "BookAnalyzer.exe"
@@ -122,7 +122,7 @@ cd installer
 iscc BookAnalyzer_x64.iss
 ```
 
-خروجی: `installer/Output/BookAnalyzer_Setup_x64_v1.0.0.exe`
+خروجی: `installer/Output/BookAnalyzer_Setup_x64_v1.1.0.exe`
 
 ---
 
@@ -174,7 +174,7 @@ OutputBaseFilename=BookAnalyzer_Setup_arm64_v{#MyAppVersion}
 
 بعد از تست موفق:
 
-1. `BookAnalyzer_Setup_x64_v1.0.0.exe` را در GitHub Releases آپلود کنید.
+1. `BookAnalyzer_Setup_x64_v1.1.0.exe` را در GitHub Releases آپلود کنید.
 2. در README لینک دانلود را بگذارید.
 3. در CHANGELOG ثبت کنید.
 
@@ -219,8 +219,8 @@ flet pack app.py `
   --hidden-import dotenv `
   --product-name "Book Analyzer" `
   --file-description "Smart Book Analyzer for Translators" `
-  --product-version "1.0.0" `
-  --file-version "1.0.0.0" `
+  --product-version "1.1.0" `
+  --file-version "1.1.0.0" `
   --company-name "Mahmoud Aharpour Feiznia" `
   --copyright "Copyright (c) 2026 Mahmoud Aharpour Feiznia"
 

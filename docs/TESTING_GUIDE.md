@@ -258,7 +258,7 @@ python -m test.check_db
 
 - [ ] `build_release.ps1` موفق
 - [ ] Installer ساخته می‌شود
-- [ ] نسخه `1.0.0` در About
+- [ ] نسخه `1.1.0` در About
 - [ ] نصب روی ماشین دوم
 - [ ] تست کامل روی ماشین دوم
 - [ ] انتشار در GitHub Releases
