@@ -2,7 +2,7 @@
 
 تحلیل‌گر هوشمند کتاب برای مترجمان — انگلیسی → فارسی
 
-![نسخه](https://img.shields.io/badge/version-1.1.0-9CAF3F)
+![نسخه](https://img.shields.io/badge/version-1.1.1-9CAF3F)
 ![پایتون](https://img.shields.io/badge/python-3.12-blue)
 ![مجوز](https://img.shields.io/badge/license-MIT-green)
 
@@ -35,7 +35,7 @@
 
 ### نسخه نصبی (پیشنهادی)
 
-از [Releases](https://github.com/mafeiznia/book-analyzer/releases) فایل `BookAnalyzer_Setup_x64_v1.1.0.exe` را دانلود و نصب کنید.
+از [Releases](https://github.com/mafeiznia/book-analyzer/releases) فایل `BookAnalyzer_Setup_x64_v1.1.1.exe` را دانلود و نصب کنید.
 
 **پیش‌نیاز:** ویندوز ۱۰ نسخه ۱۸۰۹ یا بالاتر (x64).
 
@@ -152,7 +152,7 @@ iscc BookAnalyzer_x64.iss
 - **مدل‌های رایگان OpenRouter ناپایدار هستند** — ممکن است مدل بدون اطلاع قبلی از دسترس خارج شود. راه‌حل: استفاده از Groq (پایدار و رایگان) یا شارژ OpenRouter.
 - **خروجی ARM64** برای installer فعلاً موجود نیست — فقط x64.
 
-> ✅ **باگ اسکرول چرخ ماوس** (محدودیت Flet 0.24) در نسخه `1.1.0` با ارتقاء به Flet `0.28.3` **حل شد**.
+> ✅ **باگ اسکرول چرخ ماوس** (محدودیت Flet 0.24) در نسخه `1.1.1` با ارتقاء به Flet `0.28.3` **حل شد**.
 ---
 
 ## مجوز
