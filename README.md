@@ -33,14 +33,14 @@
 
 ### نسخه نصبی (پیشنهادی)
 
-از [Releases](https://github.com/USERNAME/book-analyzer/releases) فایل `BookAnalyzer_Setup_x64_v1.0.0.exe` را دانلود و نصب کنید.
+از [Releases](https://github.com/mafeiznia/book-analyzer/releases) فایل `BookAnalyzer_Setup_x64_v1.0.0.exe` را دانلود و نصب کنید.
 
 **پیش‌نیاز:** ویندوز ۱۰ نسخه ۱۸۰۹ یا بالاتر (x64).
 
 ### نسخه توسعه (Python)
 
 ```powershell
-git clone https://github.com/USERNAME/book-analyzer.git
+git clone https://github.com/mafeiznia/book-analyzer.git
 cd book-analyzer
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
