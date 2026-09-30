@@ -69,7 +69,7 @@ def show_about_dialog(page: ft.Page) -> None:
         )
     else:
         logo_control = ft.Container(
-            content=ft.Icon(ft.icons.MENU_BOOK, size=64, color=OLIVE_PRIMARY),
+            content=ft.Icon(ft.Icons.MENU_BOOK, size=64, color=OLIVE_PRIMARY),
             width=96,
             height=96,
             alignment=ft.alignment.center,
@@ -81,9 +81,9 @@ def show_about_dialog(page: ft.Page) -> None:
             logo_control,
             ft.Container(height=4),
             ft.Text(APP_NAME, size=22, weight=ft.FontWeight.BOLD),
-            ft.Text(f"نسخه {APP_VERSION}", size=13, color=ft.colors.OUTLINE),
+            ft.Text(f"نسخه {APP_VERSION}", size=13, color=ft.Colors.OUTLINE),
             ft.Container(height=4),
-            ft.Text(APP_TAGLINE_FA, size=13, italic=True, color=ft.colors.ON_SURFACE_VARIANT),
+            ft.Text(APP_TAGLINE_FA, size=13, italic=True, color=ft.Colors.ON_SURFACE_VARIANT),
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         spacing=2,
@@ -107,17 +107,17 @@ def show_about_dialog(page: ft.Page) -> None:
     author_row_buttons = ft.Row(
         [
             _author_button(
-                ft.icons.EMAIL,
+                ft.Icons.EMAIL,
                 "ایمیل",
                 lambda e: _copy_to_clipboard(page, AUTHOR_EMAIL, "ایمیل"),
             ),
             _author_button(
-                ft.icons.LINK,
+                ft.Icons.LINK,
                 "LinkedIn",
                 lambda e: _open_url(page, AUTHOR_LINKEDIN_URL),
             ),
             _author_button(
-                ft.icons.LANGUAGE,
+                ft.Icons.LANGUAGE,
                 AUTHOR_WEBSITE,
                 lambda e: _open_url(page, AUTHOR_WEBSITE_URL),
             ),
@@ -129,9 +129,9 @@ def show_about_dialog(page: ft.Page) -> None:
     author_block = ft.Container(
         content=ft.Column(
             [
-                ft.Text("طراحی و توسعه", size=11, color=ft.colors.OUTLINE),
+                ft.Text("طراحی و توسعه", size=11, color=ft.Colors.OUTLINE),
                 ft.Text(AUTHOR_NAME_FA, size=14, weight=ft.FontWeight.BOLD),
-                ft.Text(AUTHOR_NAME_EN, size=12, color=ft.colors.ON_SURFACE_VARIANT),
+                ft.Text(AUTHOR_NAME_EN, size=12, color=ft.Colors.ON_SURFACE_VARIANT),
                 ft.Container(height=4),
                 author_row_buttons,
             ],
@@ -139,7 +139,7 @@ def show_about_dialog(page: ft.Page) -> None:
             spacing=2,
         ),
         padding=10,
-        bgcolor=ft.colors.with_opacity(0.04, ft.colors.ON_SURFACE),
+        bgcolor=ft.Colors.with_opacity(0.04, ft.Colors.ON_SURFACE),
         border_radius=8,
     )
 
@@ -162,7 +162,7 @@ def show_about_dialog(page: ft.Page) -> None:
         ft.Row(
             [
                 ft.Text("تاریخ ساخت:", size=11, weight=ft.FontWeight.BOLD, width=100),
-                ft.Text(build_date, size=11, selectable=True, color=ft.colors.OUTLINE),
+                ft.Text(build_date, size=11, selectable=True, color=ft.Colors.OUTLINE),
             ],
         )
     )
@@ -172,7 +172,7 @@ def show_about_dialog(page: ft.Page) -> None:
             [
                 ft.Row(
                     [
-                        ft.Icon(ft.icons.BUILD, size=14, color=OLIVE_PRIMARY),
+                        ft.Icon(ft.Icons.BUILD, size=14, color=OLIVE_PRIMARY),
                         ft.Text("اطلاعات فنی", size=12, weight=ft.FontWeight.BOLD),
                     ],
                     spacing=6,
@@ -183,7 +183,7 @@ def show_about_dialog(page: ft.Page) -> None:
             spacing=6,
         ),
         padding=10,
-        bgcolor=ft.colors.with_opacity(0.03, ft.colors.PRIMARY),
+        bgcolor=ft.Colors.with_opacity(0.03, ft.Colors.PRIMARY),
         border_radius=8,
     )
 
@@ -192,12 +192,12 @@ def show_about_dialog(page: ft.Page) -> None:
         ft.Text(
             f"© {COPYRIGHT_YEAR} {COPYRIGHT_HOLDER}",
             size=10,
-            color=ft.colors.OUTLINE,
+            color=ft.Colors.OUTLINE,
         ),
         ft.Text(
             f"مجوز: {LICENSE_NAME}",
             size=10,
-            color=ft.colors.OUTLINE,
+            color=ft.Colors.OUTLINE,
         ),
     ]
 
@@ -205,7 +205,7 @@ def show_about_dialog(page: ft.Page) -> None:
         footer_parts.append(
             ft.TextButton(
                 "مخزن GitHub",
-                icon=ft.icons.CODE,
+                icon=ft.Icons.CODE,
                 on_click=lambda e: _open_url(page, GITHUB_URL),
             )
         )

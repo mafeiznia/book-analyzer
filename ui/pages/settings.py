@@ -20,13 +20,13 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
     async def _do_test(name: str, status_text: ft.Text, test_btn: ft.ElevatedButton):
         test_btn.disabled = True
         status_text.value = "⏳ در حال تست چند مدل..."
-        status_text.color = ft.colors.AMBER
+        status_text.color = ft.Colors.AMBER
         page.update()
 
         provider = provider_manager.get(name)
         if provider is None:
             status_text.value = "❌ Provider یافت نشد"
-            status_text.color = ft.colors.RED
+            status_text.color = ft.Colors.RED
             test_btn.disabled = False
             page.update()
             return
@@ -34,11 +34,11 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
         result = await provider.test_connection()
         if result.ok:
             status_text.value = f"✅ {result.message}"
-            status_text.color = ft.colors.GREEN
+            status_text.color = ft.Colors.GREEN
             log_bus.emit("simple", f"✅ تست {name} موفق")
         else:
             status_text.value = f"❌ {result.message}"
-            status_text.color = ft.colors.RED
+            status_text.color = ft.Colors.RED
             log_bus.emit("simple", f"❌ تست {name} ناموفق")
         test_btn.disabled = False
         page.update()
@@ -103,7 +103,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
             "none": "⚠️ هیچ کلیدی تنظیم نشده",
         }.get(src, "")
 
-        src_text = ft.Text(src_label, size=11, color=ft.colors.OUTLINE)
+        src_text = ft.Text(src_label, size=11, color=ft.Colors.OUTLINE)
 
         models_field = ft.TextField(
             label="مدل‌ها (با کاما جدا کنید)",
@@ -114,7 +114,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
             max_lines=6,
         )
 
-        error = ft.Text("", color=ft.colors.RED_300, size=12)
+        error = ft.Text("", color=ft.Colors.RED_300, size=12)
 
         def _submit(ev):
             new_key = api_key_field.value.strip()
@@ -154,7 +154,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
                     src_text,
                     ft.TextButton(
                         "پاک کردن کلید (بازگشت به .env)",
-                        icon=ft.icons.CLEAR,
+                        icon=ft.Icons.CLEAR,
                         on_click=_clear_key,
                     ),
                     ft.Divider(height=1),
@@ -170,7 +170,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
                 ft.TextButton("انصراف", on_click=lambda e: _close(dlg)),
                 ft.ElevatedButton(
                     "ذخیره",
-                    style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+                    style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
                     on_click=_submit,
                 ),
             ],
@@ -209,7 +209,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
             min_lines=2,
             max_lines=5,
         )
-        error = ft.Text("", color=ft.colors.RED_300, size=12)
+        error = ft.Text("", color=ft.Colors.RED_300, size=12)
 
         def _submit(ev):
             name = name_field.value.strip()
@@ -251,7 +251,7 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
                 ft.TextButton("انصراف", on_click=lambda e: _close(dlg)),
                 ft.ElevatedButton(
                     "افزودن",
-                    style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+                    style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
                     on_click=_submit,
                 ),
             ],
@@ -278,30 +278,30 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
         # Key source badge
         if src == "db":
             key_label = "کلید: 💾 پایگاه داده"
-            key_color = ft.colors.GREEN
+            key_color = ft.Colors.GREEN
         elif src == "env":
             key_label = "کلید: 📄 .env"
-            key_color = ft.colors.BLUE_300
+            key_color = ft.Colors.BLUE_300
         else:
             key_label = "کلید: ⚠️ تنظیم نشده"
-            key_color = ft.colors.AMBER
+            key_color = ft.Colors.AMBER
 
         key_badge = ft.Container(
             content=ft.Text(key_label, size=11, color=key_color),
             padding=ft.padding.symmetric(horizontal=6, vertical=2),
-            bgcolor=ft.colors.with_opacity(0.15, key_color),
+            bgcolor=ft.Colors.with_opacity(0.15, key_color),
             border_radius=4,
         )
 
         title_row = ft.Row(
             [
                 ft.Icon(
-                    ft.icons.RADIO_BUTTON_CHECKED if is_active else ft.icons.RADIO_BUTTON_UNCHECKED,
-                    color=ft.colors.PRIMARY if is_active else ft.colors.OUTLINE,
+                    ft.Icons.RADIO_BUTTON_CHECKED if is_active else ft.Icons.RADIO_BUTTON_UNCHECKED,
+                    color=ft.Colors.PRIMARY if is_active else ft.Colors.OUTLINE,
                     size=20,
                 ),
                 ft.Text(row["name"], size=15, weight=ft.FontWeight.BOLD),
-                ft.Text(f"({row['base_url']})", size=11, color=ft.colors.OUTLINE),
+                ft.Text(f"({row['base_url']})", size=11, color=ft.Colors.OUTLINE),
                 ft.Container(expand=True),
                 key_badge,
             ],
@@ -312,29 +312,29 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
             content=ft.Text(
                 "builtin" if is_builtin else "custom",
                 size=10,
-                color=ft.colors.ON_SURFACE_VARIANT,
+                color=ft.Colors.ON_SURFACE_VARIANT,
             ),
             padding=ft.padding.symmetric(horizontal=6, vertical=2),
-            bgcolor=ft.colors.with_opacity(0.1, ft.colors.ON_SURFACE_VARIANT),
+            bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.ON_SURFACE_VARIANT),
             border_radius=4,
         )
 
         info_row = ft.Row(
             [
                 type_badge,
-                ft.Text(f"{models_count} مدل", size=11, color=ft.colors.OUTLINE),
+                ft.Text(f"{models_count} مدل", size=11, color=ft.Colors.OUTLINE),
             ],
             spacing=8,
         )
 
         test_btn = ft.ElevatedButton(
             "تست اتصال",
-            icon=ft.icons.WIFI_TETHERING,
+            icon=ft.Icons.WIFI_TETHERING,
             on_click=lambda e: page.run_task(_do_test, name, status_text, test_btn),
         )
         edit_btn = ft.OutlinedButton(
             "ویرایش",
-            icon=ft.icons.EDIT,
+            icon=ft.Icons.EDIT,
             on_click=lambda e: open_edit_dialog(row),
         )
 
@@ -344,14 +344,14 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
             buttons.append(
                 ft.OutlinedButton(
                     "فعال‌سازی",
-                    icon=ft.icons.CHECK_CIRCLE_OUTLINE,
+                    icon=ft.Icons.CHECK_CIRCLE_OUTLINE,
                     on_click=lambda e: _do_activate(name),
                 )
             )
         else:
             buttons.append(
                 ft.Container(
-                    content=ft.Text("فعال ✓", size=12, color=ft.colors.PRIMARY),
+                    content=ft.Text("فعال ✓", size=12, color=ft.Colors.PRIMARY),
                     padding=ft.padding.symmetric(horizontal=10, vertical=6),
                 )
             )
@@ -359,8 +359,8 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
         if not is_builtin:
             buttons.append(
                 ft.IconButton(
-                    icon=ft.icons.DELETE_OUTLINE,
-                    icon_color=ft.colors.RED_300,
+                    icon=ft.Icons.DELETE_OUTLINE,
+                    icon_color=ft.Colors.RED_300,
                     tooltip="حذف",
                     on_click=lambda e: _do_remove(name),
                 )
@@ -384,12 +384,12 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
     # --- Build page ---
     cards = ft.Column(spacing=10)
 
-    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+    theme_icon = ft.Icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.Icons.DARK_MODE
 
     header = ft.Row(
         [
             ft.IconButton(
-                icon=ft.icons.ARROW_FORWARD,
+                icon=ft.Icons.ARROW_FORWARD,
                 tooltip="بازگشت",
                 on_click=lambda e: on_back(),
             ),
@@ -401,14 +401,14 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
                 on_click=lambda e: on_toggle_theme() if on_toggle_theme else None,
             ),
             ft.IconButton(
-                icon=ft.icons.INFO_OUTLINE,
+                icon=ft.Icons.INFO_OUTLINE,
                 tooltip="درباره برنامه",
                 on_click=lambda e: show_about_dialog(page),
             ),
             ft.ElevatedButton(
                 "افزودن Provider سفارشی",
-                icon=ft.icons.ADD,
-                style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+                icon=ft.Icons.ADD,
+                style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
                 on_click=open_add_dialog,
             ),
         ]
@@ -427,13 +427,13 @@ def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
                     "۲. تنظیم متغیر مربوطه در فایل .env (روش سنتی)\n"
                     "اگر کلید در پایگاه داده وارد شده باشد، به فایل .env اولویت دارد.",
                     size=11,
-                    color=ft.colors.OUTLINE,
+                    color=ft.Colors.OUTLINE,
                 ),
             ],
             spacing=4,
         ),
         padding=10,
-        bgcolor=ft.colors.with_opacity(0.05, ft.colors.PRIMARY),
+        bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.PRIMARY),
         border_radius=6,
     )
 

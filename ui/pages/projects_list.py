@@ -40,8 +40,8 @@ def projects_list_view(
                 ft.TextButton("انصراف", on_click=_cancel),
                 ft.ElevatedButton(
                     "حذف",
-                    color=ft.colors.WHITE,
-                    bgcolor=ft.colors.RED_400,
+                    color=ft.Colors.WHITE,
+                    bgcolor=ft.Colors.RED_400,
                     on_click=_confirm,
                 ),
             ],
@@ -54,17 +54,17 @@ def projects_list_view(
     def _project_card(row: dict) -> ft.Control:
         # Status badge
         status_map = {
-            "draft": ("پیش‌نویس", ft.colors.OUTLINE),
-            "analyzing": ("در حال تحلیل", ft.colors.AMBER),
-            "done": ("انجام‌شده", ft.colors.GREEN),
-            "failed": ("خطا", ft.colors.RED_300),
+            "draft": ("پیش‌نویس", ft.Colors.OUTLINE),
+            "analyzing": ("در حال تحلیل", ft.Colors.AMBER),
+            "done": ("انجام‌شده", ft.Colors.GREEN),
+            "failed": ("خطا", ft.Colors.RED_300),
         }
-        status_label, status_color = status_map.get(row["status"], (row["status"], ft.colors.OUTLINE))
+        status_label, status_color = status_map.get(row["status"], (row["status"], ft.Colors.OUTLINE))
 
         status_badge = ft.Container(
             content=ft.Text(status_label, size=11, color=status_color),
             padding=ft.padding.symmetric(horizontal=8, vertical=3),
-            bgcolor=ft.colors.with_opacity(0.15, status_color),
+            bgcolor=ft.Colors.with_opacity(0.15, status_color),
             border_radius=6,
         )
 
@@ -80,8 +80,8 @@ def projects_list_view(
         meta_row = ft.Row(
             [
                 status_badge,
-                ft.Text(f"🔗 {url_count} لینک", size=11, color=ft.colors.OUTLINE),
-                ft.Text(f"🗓️ {row.get('updated_at', '')[:10]}", size=11, color=ft.colors.OUTLINE),
+                ft.Text(f"🔗 {url_count} لینک", size=11, color=ft.Colors.OUTLINE),
+                ft.Text(f"🗓️ {row.get('updated_at', '')[:10]}", size=11, color=ft.Colors.OUTLINE),
             ],
             spacing=12,
         )
@@ -89,7 +89,7 @@ def projects_list_view(
         title_col = ft.Column(
             [
                 ft.Text(row["title"] or "(بدون عنوان)", size=16, weight=ft.FontWeight.BOLD),
-                ft.Text(row["author"] or "(بدون نویسنده)", size=13, color=ft.colors.OUTLINE),
+                ft.Text(row["author"] or "(بدون نویسنده)", size=13, color=ft.Colors.OUTLINE),
                 ft.Container(height=2),
                 meta_row,
             ],
@@ -100,15 +100,15 @@ def projects_list_view(
         actions = ft.Row(
             [
                 ft.IconButton(
-                    icon=ft.icons.OPEN_IN_NEW,
+                    icon=ft.Icons.OPEN_IN_NEW,
                     icon_size=18,
                     tooltip="باز کردن",
                     on_click=lambda e, pid=row["id"]: on_open_project(pid),
                 ),
                 ft.IconButton(
-                    icon=ft.icons.DELETE_OUTLINE,
+                    icon=ft.Icons.DELETE_OUTLINE,
                     icon_size=18,
-                    icon_color=ft.colors.RED_300,
+                    icon_color=ft.Colors.RED_300,
                     tooltip="حذف",
                     on_click=lambda e, pid=row["id"], t=row["title"]: ask_delete(pid, t),
                 ),
@@ -140,7 +140,7 @@ def projects_list_view(
             empty = ft.Container(
                 content=ft.Column(
                     [
-                        ft.Icon(ft.icons.MENU_BOOK_OUTLINED, size=64, color=ft.colors.OUTLINE),
+                        ft.Icon(ft.Icons.MENU_BOOK_OUTLINED, size=64, color=ft.Colors.OUTLINE),
                         ft.Text(
                             "هیچ پروژه‌ای یافت نشد" if search_value["text"] else "هنوز پروژه‌ای ندارید",
                             size=18,
@@ -148,12 +148,12 @@ def projects_list_view(
                         ft.Text(
                             "عبارت دیگری را جست‌وجو کنید." if search_value["text"] else "برای شروع روی «پروژه جدید» بزنید.",
                             size=13,
-                            color=ft.colors.OUTLINE,
+                            color=ft.Colors.OUTLINE,
                         ),
                         ft.Container(height=10),
                         ft.ElevatedButton(
                             "پروژه جدید",
-                            icon=ft.icons.ADD,
+                            icon=ft.Icons.ADD,
                             on_click=lambda e: on_new_project(),
                         ),
                     ],
@@ -178,28 +178,28 @@ def projects_list_view(
 
     search_field = ft.TextField(
         hint_text="جست‌وجو در عنوان یا نویسنده...",
-        prefix_icon=ft.icons.SEARCH,
+        prefix_icon=ft.Icons.SEARCH,
         border_radius=8,
         on_change=on_search_change,
         dense=True,
     )
 
         # --- Header ---
-    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+    theme_icon = ft.Icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.Icons.DARK_MODE
 
     header = ft.Row(
         [
             ft.Text("📚 Book Analyzer", size=26, weight=ft.FontWeight.BOLD),
             ft.Container(expand=True),
             ft.IconButton(
-                icon=ft.icons.REFRESH,
+                icon=ft.Icons.REFRESH,
                 tooltip="بروزرسانی لیست",
                 on_click=lambda e: refresh(),
             ),
             ft.ElevatedButton(
                 "پروژه جدید",
-                icon=ft.icons.ADD,
-                style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+                icon=ft.Icons.ADD,
+                style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
                 on_click=lambda e: on_new_project(),
             ),
             ft.IconButton(
@@ -208,12 +208,12 @@ def projects_list_view(
                 on_click=lambda e: on_toggle_theme() if on_toggle_theme else None,
             ),
             ft.IconButton(
-                icon=ft.icons.INFO_OUTLINE,
+                icon=ft.Icons.INFO_OUTLINE,
                 tooltip="درباره برنامه",
                 on_click=lambda e: show_about_dialog(page),
             ),
             ft.IconButton(
-                icon=ft.icons.SETTINGS,
+                icon=ft.Icons.SETTINGS,
                 tooltip="تنظیمات",
                 on_click=lambda e: on_settings(),
             ),

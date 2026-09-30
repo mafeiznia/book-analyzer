@@ -5,8 +5,8 @@ from services.log_bus import log_bus
 
 
 LEVEL_COLORS = {
-    "simple": ft.colors.ON_SURFACE,
-    "technical": ft.colors.OUTLINE,
+    "simple": ft.Colors.ON_SURFACE,
+    "technical": ft.Colors.OUTLINE,
 }
 
 
@@ -27,7 +27,7 @@ class LogPanel:
         self.log_container = ft.Container(
             content=self.log_column,
             padding=10,
-            bgcolor=ft.colors.with_opacity(0.05, ft.colors.ON_SURFACE),
+            bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.ON_SURFACE),
             border_radius=6,
         )
 
@@ -40,19 +40,19 @@ class LogPanel:
 
         self.clear_btn = ft.TextButton(
             "پاک کردن",
-            icon=ft.icons.CLEAR_ALL,
+            icon=ft.Icons.CLEAR_ALL,
             on_click=self._on_clear,
         )
 
         self.copy_btn = ft.TextButton(
             "کپی لاگ",
-            icon=ft.icons.COPY_ALL,
+            icon=ft.Icons.COPY_ALL,
             on_click=self._on_copy,
         )
 
         self.header_row = ft.Row(
             [
-                ft.Icon(ft.icons.TERMINAL, size=16, color=ft.colors.PRIMARY),
+                ft.Icon(ft.Icons.TERMINAL, size=16, color=ft.Colors.PRIMARY),
                 ft.Text("لاگ زنده", size=13, weight=ft.FontWeight.BOLD),
                 ft.Container(expand=True),
                 self.toggle,
@@ -93,7 +93,7 @@ class LogPanel:
 
             ts = ev.get("time", "")
             msg = ev.get("message", "")
-            color = LEVEL_COLORS.get(level, ft.colors.ON_SURFACE)
+            color = LEVEL_COLORS.get(level, ft.Colors.ON_SURFACE)
             prefix = "  " if level == "technical" else ""
 
             self.log_column.controls.append(

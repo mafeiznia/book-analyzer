@@ -43,15 +43,15 @@ def build_result_view(
 
     # --- Meta bar ---
     confidence_color = {
-        "Confirmed": ft.colors.GREEN_300,
-        "Probable": ft.colors.AMBER,
-        "Unknown": ft.colors.OUTLINE,
-    }.get(confidence, ft.colors.OUTLINE)
+        "Confirmed": ft.Colors.GREEN_300,
+        "Probable": ft.Colors.AMBER,
+        "Unknown": ft.Colors.OUTLINE,
+    }.get(confidence, ft.Colors.OUTLINE)
 
     meta_row = ft.Row(
         [
             ft.Container(
-                content=ft.Text(f"نسخه {version}", size=11, color=ft.colors.WHITE),
+                content=ft.Text(f"نسخه {version}", size=11, color=ft.Colors.WHITE),
                 padding=ft.padding.symmetric(horizontal=8, vertical=3),
                 bgcolor=OLIVE_PRIMARY,
                 border_radius=6,
@@ -59,12 +59,12 @@ def build_result_view(
             ft.Container(
                 content=ft.Text(f"اطمینان: {confidence}", size=11, color=confidence_color),
                 padding=ft.padding.symmetric(horizontal=8, vertical=3),
-                bgcolor=ft.colors.with_opacity(0.15, confidence_color),
+                bgcolor=ft.Colors.with_opacity(0.15, confidence_color),
                 border_radius=6,
             ),
-            ft.Text(f"🤖 {provider}/{model}", size=11, color=ft.colors.OUTLINE),
-            ft.Text(f"🕒 {analyzed_at}", size=11, color=ft.colors.OUTLINE),
-            ft.Text(f"📊 {tokens_in}+{tokens_out} توکن", size=11, color=ft.colors.OUTLINE),
+            ft.Text(f"🤖 {provider}/{model}", size=11, color=ft.Colors.OUTLINE),
+            ft.Text(f"🕒 {analyzed_at}", size=11, color=ft.Colors.OUTLINE),
+            ft.Text(f"📊 {tokens_in}+{tokens_out} توکن", size=11, color=ft.Colors.OUTLINE),
         ],
         spacing=8,
         wrap=True,
@@ -102,11 +102,11 @@ def build_result_view(
                         size=12,
                         italic=True,
                         selectable=True,
-                        color=ft.colors.ON_SURFACE_VARIANT,
+                        color=ft.Colors.ON_SURFACE_VARIANT,
                     ),
                     padding=ft.padding.symmetric(horizontal=12, vertical=6),
                     border=ft.border.only(left=ft.BorderSide(3, OLIVE_PRIMARY)),
-                    bgcolor=ft.colors.with_opacity(0.04, OLIVE_PRIMARY),
+                    bgcolor=ft.Colors.with_opacity(0.04, OLIVE_PRIMARY),
                 )
             )
     blocks.append(ft.Container(height=6))
@@ -173,18 +173,18 @@ def build_result_view(
                                 f"راهبرد: {pick(n.get('suggestion'), LANG)}",
                                 size=12,
                                 selectable=True,
-                                color=ft.colors.ON_SURFACE_VARIANT,
+                                color=ft.Colors.ON_SURFACE_VARIANT,
                             ),
                         ],
                         spacing=4,
                     ),
                     padding=10,
-                    bgcolor=ft.colors.with_opacity(0.05, ft.colors.ON_SURFACE),
+                    bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.ON_SURFACE),
                     border_radius=6,
                 )
             )
     else:
-        blocks.append(ft.Text("(نکته‌ای ثبت نشده)", italic=True, color=ft.colors.OUTLINE))
+        blocks.append(ft.Text("(نکته‌ای ثبت نشده)", italic=True, color=ft.Colors.OUTLINE))
     blocks.append(ft.Container(height=6))
 
     # --- Sources ---
@@ -192,7 +192,7 @@ def build_result_view(
         blocks.append(_section_header("🔗", "منابع استفاده‌شده"))
         for url in sources_used:
             blocks.append(
-                ft.Text(url, size=11, color=ft.colors.ON_SURFACE_VARIANT, selectable=True)
+                ft.Text(url, size=11, color=ft.Colors.ON_SURFACE_VARIANT, selectable=True)
             )
         blocks.append(ft.Container(height=6))
 
@@ -213,7 +213,7 @@ def build_result_view(
         [
             ft.ElevatedButton(
                 "کپی پرامپت",
-                icon=ft.icons.COPY,
+                icon=ft.Icons.COPY,
                 on_click=lambda e: _copy_prompt(e, translation_prompt, on_copy_prompt),
             ),
         ],
@@ -240,7 +240,7 @@ def build_result_view(
                     [
                         ft.Row(
                             [
-                                ft.Icon(ft.icons.FOLDER_SPECIAL, size=16, color=OLIVE_PRIMARY),
+                                ft.Icon(ft.Icons.FOLDER_SPECIAL, size=16, color=OLIVE_PRIMARY),
                                 ft.Text(
                                     "خروجی‌ها ذخیره شده‌اند در:",
                                     size=12,
@@ -253,16 +253,16 @@ def build_result_view(
                             str(output_folder_path),
                             size=11,
                             selectable=True,
-                            color=ft.colors.ON_SURFACE_VARIANT,
+                            color=ft.Colors.ON_SURFACE_VARIANT,
                         ),
                         ft.Container(height=4),
                         ft.Row(
                             [
                                 ft.ElevatedButton(
                                     "📂 باز کردن پوشه خروجی",
-                                    icon=ft.icons.FOLDER_OPEN,
+                                    icon=ft.Icons.FOLDER_OPEN,
                                     style=ft.ButtonStyle(
-                                        bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK
+                                        bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK
                                     ),
                                     on_click=lambda e: on_open_folder(),
                                 ),
@@ -273,7 +273,7 @@ def build_result_view(
                     spacing=6,
                 ),
                 padding=12,
-                bgcolor=ft.colors.with_opacity(0.04, ft.colors.ON_SURFACE),
+                bgcolor=ft.Colors.with_opacity(0.04, ft.Colors.ON_SURFACE),
                 border_radius=6,
             )
         )

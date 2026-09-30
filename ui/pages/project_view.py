@@ -75,7 +75,7 @@ def project_view(
         hint_text="چند پاراگراف از کتاب را اینجا پیست کنید...",
     )
 
-    error_text = ft.Text("", size=12, color=ft.colors.RED_300)
+    error_text = ft.Text("", size=12, color=ft.Colors.RED_300)
 
     # --- Model selector (from active provider) ---
     active_provider = provider_manager.get_active()
@@ -123,31 +123,31 @@ def project_view(
     log_panel = LogPanel(page)
 
     # --- Status ---
-    status_text = ft.Text("", size=12, color=ft.colors.OUTLINE)
-    elapsed_text = ft.Text("", size=12, color=ft.colors.OUTLINE)
+    status_text = ft.Text("", size=12, color=ft.Colors.OUTLINE)
+    elapsed_text = ft.Text("", size=12, color=ft.Colors.OUTLINE)
 
     cancel_btn = ft.OutlinedButton(
         "لغو تحلیل",
-        icon=ft.icons.CANCEL,
-        style=ft.ButtonStyle(color=ft.colors.RED_300),
+        icon=ft.Icons.CANCEL,
+        style=ft.ButtonStyle(color=ft.Colors.RED_300),
         visible=False,
     )
 
     analyze_btn = ft.ElevatedButton(
         "شروع تحلیل",
-        icon=ft.icons.PLAY_ARROW,
-        style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+        icon=ft.Icons.PLAY_ARROW,
+        style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
         disabled=is_new,
     )
 
     save_btn = ft.OutlinedButton(
         "ذخیره",
-        icon=ft.icons.SAVE,
+        icon=ft.Icons.SAVE,
     )
     save_back_btn = ft.ElevatedButton(
         "ذخیره و بازگشت",
-        icon=ft.icons.SAVE_ALT,
-        style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
+        icon=ft.Icons.SAVE_ALT,
+        style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.Colors.BLACK),
     )
 
     # --- Task state (for cancellation) ---
@@ -338,7 +338,7 @@ def project_view(
         save_back_btn.disabled = True
         cancel_btn.visible = True
         status_text.value = "⏳ در حال تحلیل..."
-        status_text.color = ft.colors.AMBER
+        status_text.color = ft.Colors.AMBER
         page.update()
 
         log_bus.emit("simple", f"🚀 شروع تحلیل: {title_field.value.strip()}")
@@ -362,7 +362,7 @@ def project_view(
         except asyncio.CancelledError:
             log_bus.emit("simple", "⛔ تحلیل توسط کاربر لغو شد")
             status_text.value = "⛔ لغو شد"
-            status_text.color = ft.colors.AMBER
+            status_text.color = ft.Colors.AMBER
             repo.set_status(project["id"], "draft")
             analyze_btn.disabled = False
             save_btn.disabled = False
@@ -381,7 +381,7 @@ def project_view(
         except Exception as ex:
             log_bus.emit("simple", f"❌ خطای غیرمنتظره: {type(ex).__name__}: {str(ex)[:200]}")
             status_text.value = "❌ خطا"
-            status_text.color = ft.colors.RED_300
+            status_text.color = ft.Colors.RED_300
             analyze_btn.disabled = False
             save_btn.disabled = False
             save_back_btn.disabled = False
@@ -499,18 +499,18 @@ def project_view(
 
                 log_bus.emit("simple", "💾 تحلیل در دیتابیس ذخیره شد.")
                 status_text.value = f"✅ تحلیل کامل شد ({result.elapsed_ms}ms)"
-                status_text.color = ft.colors.GREEN_300
+                status_text.color = ft.Colors.GREEN_300
                 page.open(ft.SnackBar(ft.Text("✅ تحلیل کامل شد و ذخیره شد")))
 
             except Exception as ex_save:
                 log_bus.emit("simple", f"❌ خطا در ذخیره: {type(ex_save).__name__}: {str(ex_save)[:150]}")
                 status_text.value = "⚠️ ذخیره ناموفق"
-                status_text.color = ft.colors.AMBER
+                status_text.color = ft.Colors.AMBER
         else:
             repo.set_status(project["id"], "failed")
             log_bus.emit("simple", f"❌ تحلیل ناموفق: {result.error[:200]}")
             status_text.value = "❌ تحلیل ناموفق"
-            status_text.color = ft.colors.RED_300
+            status_text.color = ft.Colors.RED_300
 
         analyze_btn.disabled = False
         save_btn.disabled = False
@@ -534,12 +534,12 @@ def project_view(
 
     # --- Header ---
     header_title = "پروژه جدید" if is_new else f"ویرایش پروژه #{project['id']}"
-    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+    theme_icon = ft.Icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.Icons.DARK_MODE
 
     header = ft.Row(
         [
             ft.IconButton(
-                icon=ft.icons.ARROW_FORWARD,
+                icon=ft.Icons.ARROW_FORWARD,
                 tooltip="بازگشت",
                 on_click=lambda e: on_back(),
             ),
@@ -607,7 +607,7 @@ def _not_found(on_back) -> ft.Control:
     header = ft.Row(
         [
             ft.IconButton(
-                icon=ft.icons.ARROW_FORWARD,
+                icon=ft.Icons.ARROW_FORWARD,
                 tooltip="بازگشت",
                 on_click=lambda e: on_back(),
             ),
@@ -615,7 +615,7 @@ def _not_found(on_back) -> ft.Control:
         ]
     )
     body = ft.Container(
-        content=ft.Text("این پروژه وجود ندارد یا حذف شده است.", color=ft.colors.RED_300),
+        content=ft.Text("این پروژه وجود ندارد یا حذف شده است.", color=ft.Colors.RED_300),
         alignment=ft.alignment.center,
         expand=True,
     )
