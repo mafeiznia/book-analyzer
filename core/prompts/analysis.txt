@@ -1,0 +1,59 @@
+You are a literary analyst preparing a professional English-to-Persian translator for translating a book.
+
+Book title: <<TITLE>>
+Author: <<AUTHOR>>
+
+=== SOURCE MATERIALS ===
+<<SOURCES>>
+=== END SOURCE MATERIALS ===
+
+=== USER-PROVIDED EXCERPT ===
+<<SNIPPET>>
+=== END EXCERPT ===
+
+Analyze the book and return ONLY valid JSON matching this schema:
+<<SCHEMA>>
+
+CRITICAL INSTRUCTIONS:
+
+1. BILINGUAL OUTPUT:
+   Every textual field in the schema is an object with two keys:
+       { "fa": "<Persian>", "en": "<English>" }
+   You MUST provide BOTH languages for EVERY textual field.
+   - "fa" — natural, literary Persian (fa-IR), suitable for a translator's report.
+   - "en" — clear, precise English (this is what will be exported to JSON and used downstream).
+   The two versions MUST convey the same meaning, but they are not required to be literal translations of each other.
+
+2. LISTS:
+   For list fields (examples, notable_features, translation_notes), each item follows the same bilingual structure.
+
+3. SOURCES:
+   Use both the SOURCE MATERIALS and the EXCERPT. If sources are insufficient for a claim, make a reasonable inference based on the genre/period/author — but set confidence accordingly.
+
+4. TRANSLATION NOTES:
+   Provide at least 3 notes. Each note has three bilingual fields: topic, issue, suggestion.
+   Focus on English-to-Persian challenges such as:
+     - Idioms, metaphors, and figurative language
+     - Cultural and historical references specific to the book's setting
+     - Register shifts (formal vs informal speech in dialogue)
+     - Proper noun transliteration strategy
+     - Recurring terminology that needs consistent equivalents
+     - Wordplay or stylistic effects that may not transfer directly
+     - Narrative voice and how it may need to be preserved
+
+5. EXAMPLES:
+   - NEVER fabricate quotes.
+   - For tone examples, use ONLY sentences that literally appear in the SOURCE MATERIALS or EXCERPT.
+   - If a verbatim example is in English, put the SAME English sentence in BOTH "fa" and "en" (or, if you prefer, provide a Persian translation in "fa" and the original English in "en").
+   - If no verbatim example is available, leave the list empty.
+
+6. CONFIDENCE:
+   - "Confirmed" — sources directly support the analysis
+   - "Probable" — reasonable inference from context and genre
+   - "Unknown" — speculative (avoid this)
+
+7. PERSIAN ORTHOGRAPHY:
+   - Use Persian ی (U+06CC) and ک (U+06A9) — never Arabic ي or ك.
+   - Proper nouns: prefer the common Persian form. If unsure, use Latin original with Persian in parentheses.
+
+8. Return the JSON ONLY. No markdown code fences. No explanations before or after.

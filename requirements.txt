@@ -1,0 +1,11 @@
+flet==0.24.1
+python-dotenv==1.0.1
+httpx==0.27.2
+beautifulsoup4==4.12.3
+lxml==5.3.0
+duckduckgo-search==6.3.5
+openai==1.54.3
+google-generativeai==0.8.3
+pydantic==2.9.2
+weasyprint==63.0
+markdown==3.7

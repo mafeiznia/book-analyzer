@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.venv*/
+venv/
+env/
+.python-version
+
+# Env & Secrets
+.env
+.env.local
+.env.*.local
+
+# Data & Output
+data/*.db
+data/*.db-journal
+data/*.db-wal
+output/*
+!output/.gitkeep
+!data/.gitkeep
+
+# Build & Dist
+build/
+dist/
+*.spec
+*.exe
+*.dll
+*.pdb
+
+# Inno Setup
+installer/Output/
+installer/*.iss.bak
+
+# Fonts — keep .ttf files (needed by app), ignore .woff2 (web-only)
+assets/fonts/*.woff2
+assets/fonts/*.otf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+*.tmp
+test_output/
