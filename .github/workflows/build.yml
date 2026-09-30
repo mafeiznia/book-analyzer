@@ -1,0 +1,67 @@
+name: Build Windows App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build with flet pack
+        run: |
+          flet pack app.py `
+            --name BookAnalyzer `
+            --onedir `
+            --icon assets\icon.ico `
+            --add-data "assets;assets" `
+            --add-data "core\prompts;core\prompts" `
+            --hidden-import certifi `
+            --hidden-import openai `
+            --hidden-import google.generativeai `
+            --hidden-import weasyprint `
+            --hidden-import ddgs `
+            --hidden-import pyperclip `
+            --hidden-import markdown `
+            --hidden-import lxml `
+            --hidden-import bs4 `
+            --hidden-import pydantic `
+            --hidden-import httpx `
+            --hidden-import dotenv `
+            --product-name "Book Analyzer" `
+            --file-description "Smart Book Analyzer for Translators" `
+            --product-version "1.0.0" `
+            --file-version "1.0.0.0" `
+            --company-name "Mahmoud Aharpour Feiznia" `
+            --copyright "Copyright (c) 2026 Mahmoud Aharpour Feiznia"
+
+      - name: Clean user-specific data
+        run: |
+          Remove-Item -Force "dist\BookAnalyzer\data\projects.db" -ErrorAction SilentlyContinue
+          Remove-Item -Force "dist\BookAnalyzer\data\settings.json" -ErrorAction SilentlyContinue
+          Remove-Item -Force "dist\BookAnalyzer\.env" -ErrorAction SilentlyContinue
+          Remove-Item -Recurse -Force "dist\BookAnalyzer\output\*" -ErrorAction SilentlyContinue
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BookAnalyzer-Windows-x64
+          path: dist/BookAnalyzer
