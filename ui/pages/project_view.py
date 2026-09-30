@@ -22,7 +22,13 @@ from ui.theme import OLIVE_PRIMARY
 load_dotenv()
 
 
-def project_view(page: ft.Page, project_id: int | None, on_back, on_saved=None) -> ft.Control:
+def project_view(
+    page: ft.Page,
+    project_id: int | None,
+    on_back,
+    on_saved=None,
+    on_toggle_theme=None,
+) -> ft.Control:
     """Return the project view."""
     is_new = project_id is None
     project = repo.get_project(project_id) if not is_new else None
@@ -528,6 +534,8 @@ def project_view(page: ft.Page, project_id: int | None, on_back, on_saved=None) 
 
     # --- Header ---
     header_title = "پروژه جدید" if is_new else f"ویرایش پروژه #{project['id']}"
+    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+
     header = ft.Row(
         [
             ft.IconButton(
@@ -537,6 +545,11 @@ def project_view(page: ft.Page, project_id: int | None, on_back, on_saved=None) 
             ),
             ft.Text(header_title, size=22, weight=ft.FontWeight.BOLD),
             ft.Container(expand=True),
+            ft.IconButton(
+                icon=theme_icon,
+                tooltip="تغییر تم روشن/تاریک",
+                on_click=lambda e: on_toggle_theme() if on_toggle_theme else None,
+            ),
             save_btn,
             save_back_btn,
         ],

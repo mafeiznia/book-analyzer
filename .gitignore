@@ -17,6 +17,7 @@ env/
 data/*.db
 data/*.db-journal
 data/*.db-wal
+data/settings.json
 output/*
 !output/.gitkeep
 !data/.gitkeep

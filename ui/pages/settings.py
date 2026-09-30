@@ -7,7 +7,7 @@ from ui.theme import OLIVE_PRIMARY
 from ui.components.about_dialog import show_about_dialog
 
 
-def settings_view(page: ft.Page, on_back) -> ft.Control:
+def settings_view(page: ft.Page, on_back, on_toggle_theme=None) -> ft.Control:
     # --- Refresh ---
     def refresh():
         rows = provider_manager.list_providers()
@@ -384,6 +384,8 @@ def settings_view(page: ft.Page, on_back) -> ft.Control:
     # --- Build page ---
     cards = ft.Column(spacing=10)
 
+    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+
     header = ft.Row(
         [
             ft.IconButton(
@@ -393,6 +395,11 @@ def settings_view(page: ft.Page, on_back) -> ft.Control:
             ),
             ft.Text("تنظیمات Providerها", size=22, weight=ft.FontWeight.BOLD),
             ft.Container(expand=True),
+            ft.IconButton(
+                icon=theme_icon,
+                tooltip="تغییر تم روشن/تاریک",
+                on_click=lambda e: on_toggle_theme() if on_toggle_theme else None,
+            ),
             ft.IconButton(
                 icon=ft.icons.INFO_OUTLINE,
                 tooltip="درباره برنامه",

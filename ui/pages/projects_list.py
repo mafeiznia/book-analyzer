@@ -7,7 +7,13 @@ from ui.theme import OLIVE_PRIMARY
 from ui.components.about_dialog import show_about_dialog
 
 
-def projects_list_view(page: ft.Page, on_open_project, on_new_project, on_settings) -> ft.Control:
+def projects_list_view(
+    page: ft.Page,
+    on_open_project,
+    on_new_project,
+    on_settings,
+    on_toggle_theme=None,
+) -> ft.Control:
     """Return the projects list view."""
 
     # --- State ---
@@ -179,6 +185,8 @@ def projects_list_view(page: ft.Page, on_open_project, on_new_project, on_settin
     )
 
         # --- Header ---
+    theme_icon = ft.icons.LIGHT_MODE if page.theme_mode == ft.ThemeMode.DARK else ft.icons.DARK_MODE
+
     header = ft.Row(
         [
             ft.Text("📚 Book Analyzer", size=26, weight=ft.FontWeight.BOLD),
@@ -193,6 +201,11 @@ def projects_list_view(page: ft.Page, on_open_project, on_new_project, on_settin
                 icon=ft.icons.ADD,
                 style=ft.ButtonStyle(bgcolor=OLIVE_PRIMARY, color=ft.colors.BLACK),
                 on_click=lambda e: on_new_project(),
+            ),
+            ft.IconButton(
+                icon=theme_icon,
+                tooltip="تغییر تم روشن/تاریک",
+                on_click=lambda e: on_toggle_theme() if on_toggle_theme else None,
             ),
             ft.IconButton(
                 icon=ft.icons.INFO_OUTLINE,
