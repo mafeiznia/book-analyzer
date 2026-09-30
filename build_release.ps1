@@ -36,8 +36,8 @@ flet pack app.py `
   --hidden-import dotenv `
   --product-name "Book Analyzer" `
   --file-description "Smart Book Analyzer for Translators" `
-  --product-version "1.0.0" `
-  --file-version "1.0.0.0" `
+  --product-version "1.1.0" `
+  --file-version "1.1.0.0" `
   --company-name "Mahmoud Aharpour Feiznia" `
   --copyright "Copyright (c) 2026 Mahmoud Aharpour Feiznia"
 

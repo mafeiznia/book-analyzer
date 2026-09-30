@@ -9,7 +9,7 @@ import sys
 # APPLICATION
 # ============================================================
 APP_NAME = "Book Analyzer"
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.1.0"
 APP_TAGLINE_FA = "تحلیل‌گر هوشمند کتاب برای مترجمان"
 APP_TAGLINE_EN = "Smart Book Analyzer for Translators"
 
@@ -44,7 +44,7 @@ GITHUB_URL = ""  # TODO: پس از انتشار در گام ۱۲ پر شود
 # ============================================================
 # هر ردیف: (عنوان فارسی، مقدار)
 TECH_STACK: list[tuple[str, str]] = [
-    ("رابط کاربری", "Flet (Python) + Material 3"),
+    ("رابط کاربری", "Flet 0.28.3 (Python) + Material 3"),
     ("زبان برنامه‌نویسی", "Python 3.12"),
     ("دیتابیس", "SQLite"),
     ("مدل زبانی", "چندگانه (OpenRouter, OpenAI, Gemini, DeepSeek, GLM, Custom)"),

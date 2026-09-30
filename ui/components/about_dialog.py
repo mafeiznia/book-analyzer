@@ -149,9 +149,22 @@ def show_about_dialog(page: ft.Page) -> None:
         tech_rows.append(
             ft.Row(
                 [
-                    ft.Text(f"{label}:", size=11, weight=ft.FontWeight.BOLD, width=100),
-                    ft.Text(value, size=11, selectable=True, expand=True),
+                    ft.Text(
+                        f"{label}:",
+                        size=11,
+                        weight=ft.FontWeight.BOLD,
+                        width=120,
+                        text_align=ft.TextAlign.RIGHT,
+                    ),
+                    ft.Text(
+                        value,
+                        size=11,
+                        selectable=True,
+                        expand=True,
+                        text_align=ft.TextAlign.LEFT,
+                    ),
                 ],
+                rtl=True,
                 vertical_alignment=ft.CrossAxisAlignment.START,
             )
         )
@@ -161,9 +174,23 @@ def show_about_dialog(page: ft.Page) -> None:
     tech_rows.append(
         ft.Row(
             [
-                ft.Text("تاریخ ساخت:", size=11, weight=ft.FontWeight.BOLD, width=100),
-                ft.Text(build_date, size=11, selectable=True, color=ft.Colors.OUTLINE),
+                ft.Text(
+                    "تاریخ ساخت:",
+                    size=11,
+                    weight=ft.FontWeight.BOLD,
+                    width=120,
+                    text_align=ft.TextAlign.RIGHT,
+                ),
+                ft.Text(
+                    build_date,
+                    size=11,
+                    selectable=True,
+                    expand=True,
+                    color=ft.Colors.OUTLINE,
+                    text_align=ft.TextAlign.LEFT,
+                ),
             ],
+            rtl=True,
         )
     )
 
