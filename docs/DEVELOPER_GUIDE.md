@@ -146,6 +146,24 @@ book-analyzer/
       base = Path(__file__).parent.parent
   ```
 
+**بلافاصله بعد از آن** این بخش جدید را اضافه کنید:
+
+````markdown
+### ۶. مستندات RTL
+
+فایل‌های Markdown که محتوای فارسی دارند (مثل `README.md`, `docs/USER_GUIDE.md`, `docs/TROUBLESHOOTING.md`) با یک `<div dir="rtl" markdown="1">` در ابتدا و `</div>` در انتها پیچیده می‌شوند:
+
+```markdown
+# عنوان فارسی
+
+<div dir="rtl" markdown="1">
+
+## بخش اول
+
+متن فارسی...
+
+</div>
+
 ## افزودن Provider جدید
 
 ### مثال: افزودن Together AI
