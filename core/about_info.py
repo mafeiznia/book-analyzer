@@ -9,7 +9,7 @@ import sys
 # APPLICATION
 # ============================================================
 APP_NAME = "Book Analyzer"
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.1.1"
 APP_TAGLINE_FA = "تحلیل‌گر هوشمند کتاب برای مترجمان"
 APP_TAGLINE_EN = "Smart Book Analyzer for Translators"
 
