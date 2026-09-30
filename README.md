@@ -8,7 +8,7 @@
 
 ![صفحه اصلی](docs/screenshots/main.png)
 
----
+<div dir="rtl" markdown="1">
 
 ## معرفی
 
@@ -49,51 +49,55 @@ py -3.12 -m venv .venv
 pip install -r requirements.txt
 Copy-Item .env.example .env
 python app.py
-اولین اجرا
-به تنظیمات (آیکن چرخ‌دنده) بروید.
+```
 
-یک Provider را انتخاب و کلید API آن را وارد کنید. پیشنهاد: Groq (رایگان، سریع).
+---
 
-روی «تست اتصال» بزنید.
+## اولین اجرا
 
-روی «فعال‌سازی» بزنید.
+1. به **تنظیمات** (آیکن چرخ‌دنده) بروید.
+2. یک Provider را انتخاب و کلید API آن را وارد کنید. پیشنهاد: **Groq** (رایگان، سریع).
+3. روی «تست اتصال» بزنید.
+4. روی «فعال‌سازی» بزنید.
+5. یک **پروژه جدید** بسازید و فیلدها را پر کنید.
+6. روی **«شروع تحلیل»** بزنید.
 
-یک پروژه جدید بسازید و فیلدها را پر کنید.
+راهنمای کامل: [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md)
 
-روی «شروع تحلیل» بزنید.
+---
 
-راهنمای کامل: docs/USER_GUIDE.md
+## Providerهای پشتیبانی‌شده
 
-Providerهای پشتیبانی‌شده
-Provider	کلید رایگان	پایداری	سرعت
-Groq	✅	⭐⭐⭐⭐⭐	بسیار سریع
-OpenRouter	✅ (محدود)	⭐⭐	متوسط
-OpenAI	❌ (پول‌دار)	⭐⭐⭐⭐⭐	متوسط
-Google Gemini	✅	⭐⭐⭐⭐	متوسط
-DeepSeek	❌	⭐⭐⭐⭐	متوسط
-GLM (Zhipu)	❌	⭐⭐⭐	متوسط
-توصیه: برای شروع، Groq را انتخاب کنید (رایگان و پایدار).
-راهنما: console.groq.com/keys
+| Provider | کلید رایگان | پایداری | سرعت |
+|---|---|---|---|
+| **Groq** | ✅ | ⭐⭐⭐⭐⭐ | بسیار سریع |
+| OpenRouter | ✅ (محدود) | ⭐⭐ | متوسط |
+| OpenAI | ❌ (پول‌دار) | ⭐⭐⭐⭐⭐ | متوسط |
+| Google Gemini | ✅ | ⭐⭐⭐⭐ | متوسط |
+| DeepSeek | ❌ | ⭐⭐⭐⭐ | متوسط |
+| GLM (Zhipu) | ❌ | ⭐⭐⭐ | متوسط |
 
-ویژگی‌های کلیدی
-🎨 رابط کاربری فارسی RTL با تم تاریک و رنگ زیتونی
+**توصیه:** برای شروع، **Groq** را انتخاب کنید (رایگان و پایدار).
+راهنما: [console.groq.com/keys](https://console.groq.com/keys)
 
-🔌 Providerهای چندگانه با امکان افزودن Provider سفارشی
+---
 
-🌐 جست‌وجوی خودکار با DuckDuckGo اگر لینک‌های کاربر کافی نباشند
+## ویژگی‌های کلیدی
 
-📋 لاگ زنده با سطح ساده/فنی
+- 🎨 **رابط کاربری فارسی RTL** با تم روشن/تاریک (قابل تغییر)
+- 🔌 **Providerهای چندگانه** با امکان افزودن Provider سفارشی
+- 🌐 **جست‌وجوی خودکار** با DuckDuckGo اگر لینک‌های کاربر کافی نباشند
+- 📋 **لاگ زنده** با سطح ساده/فنی و دکمه کپی
+- 📦 **نسخه‌بندی تحلیل‌ها** (v1, v2, ...) — نسخه‌های قبلی حفظ می‌شوند
+- 🎯 **انتخاب مدل per-project**
+- ⛔ **لغو تحلیل** در حین کار + نمایش زمان سپری‌شده
+- 🔐 **مدیریت امن کلیدها** (پایگاه داده یا `.env`)
 
-📦 نسخه‌بندی تحلیل‌ها (v1, v2, ...) — نسخه‌های قبلی حفظ می‌شوند
+---
 
-🎯 انتخاب مدل per-project
+## ساختار پروژه
 
-⛔ لغو تحلیل در حین کار
-
-🔐 مدیریت امن کلیدها (پایگاه داده یا .env)
-
-ساختار پروژه
-text
+```
 book-analyzer/
 ├── app.py                # نقطه ورود
 ├── ui/                   # رابط کاربری Flet
@@ -106,38 +110,61 @@ book-analyzer/
 ├── docs/                 # مستندات
 ├── installer/            # Inno Setup
 └── test/                 # تست‌های دستی
-مستندات
-سند	موضوع
-docs/ARCHITECTURE.md	معماری کامل
-docs/USER_GUIDE.md	راهنمای کاربر
-docs/DEVELOPER_GUIDE.md	راه‌اندازی و توسعه
-docs/ROADMAP.md	نقشه راه
-docs/CHANGELOG.md	تاریخچه تغییرات
-docs/TESTING_GUIDE.md	تست‌ها
-docs/TROUBLESHOOTING.md	عیب‌یابی
-docs/HANDOFF.md	تحویل پروژه
-docs/HANDOFF_PROVIDERS.md	چارچوب Provider (قابل استفاده مجدد)
-docs/HANDOFF_ABOUT_DIALOG.md	چارچوب About (قابل استفاده مجدد)
-docs/HANDOFF_INSTALLER.md	چارچوب Installer (قابل استفاده مجدد)
-توسعه
-powershell
+```
+
+---
+
+## مستندات
+
+| سند | موضوع |
+|---|---|
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | معماری کامل |
+| [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) | راهنمای کاربر |
+| [`docs/DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md) | راه‌اندازی و توسعه |
+| [`docs/ROADMAP.md`](docs/ROADMAP.md) | نقشه راه |
+| [`docs/CHANGELOG.md`](docs/CHANGELOG.md) | تاریخچه تغییرات |
+| [`docs/TESTING_GUIDE.md`](docs/TESTING_GUIDE.md) | تست‌ها |
+| [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | عیب‌یابی |
+| [`docs/HANDOFF.md`](docs/HANDOFF.md) | تحویل پروژه |
+| [`docs/HANDOFF_PROVIDERS.md`](docs/HANDOFF_PROVIDERS.md) | چارچوب Provider (قابل استفاده مجدد) |
+| [`docs/HANDOFF_ABOUT_DIALOG.md`](docs/HANDOFF_ABOUT_DIALOG.md) | چارچوب About (قابل استفاده مجدد) |
+| [`docs/HANDOFF_INSTALLER.md`](docs/HANDOFF_INSTALLER.md) | چارچوب Installer (قابل استفاده مجدد) |
+
+---
+
+## توسعه
+
+```powershell
 # build خودکار + پاکسازی نسخه توزیعی
 .\build_release.ps1
 
 # ساخت Installer
 cd installer
 iscc BookAnalyzer_x64.iss
-راهنمای کامل: docs/DEVELOPER_GUIDE.md
+```
 
-محدودیت‌های شناخته‌شده
-اسکرول صفحه با چرخ ماوس «تکه‌تکه» است (محدودیت Flet 0.24 روی ویندوز دسکتاپ)
+راهنمای کامل: [`docs/DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md)
 
-مدل‌های رایگان OpenRouter ناپایدار هستند (راه‌حل: Groq یا شارژ OpenRouter)
+---
 
-مجوز
-MIT License — © 2026 Mahmoud Aharpour Feiznia
+## محدودیت‌های شناخته‌شده
 
-ارتباط
-🌐 وب‌سایت: yadoto.ir
-📧 ایمیل: ma.feiznia@gmail.com
-💼 LinkedIn: Mahmoud Aharpour Feiznia
+- **اسکرول صفحه با چرخ ماوس «تکه‌تکه» است** — محدودیت Flet 0.24 روی ویندوز دسکتاپ. با اسکرول‌بار یا کشیدن آن کار می‌کند. در نسخه‌های بعدی Flet (1.0+) ممکن است رفع شود.
+- **مدل‌های رایگان OpenRouter ناپایدار هستند** — ممکن است مدل بدون اطلاع قبلی از دسترس خارج شود. راه‌حل: استفاده از Groq (پایدار و رایگان) یا شارژ OpenRouter.
+- **خروجی ARM64** برای installer فعلاً موجود نیست — فقط x64.
+
+---
+
+## مجوز
+
+[MIT License](LICENSE) — © 2026 Mahmoud Aharpour Feiznia
+
+---
+
+## ارتباط
+
+- 🌐 وب‌سایت: [yadoto.ir](https://yadoto.ir)
+- 📧 ایمیل: ma.feiznia@gmail.com
+- 💼 LinkedIn: [Mahmoud Aharpour Feiznia](https://www.linkedin.com/in/mahmoud-aharpour-feiznia)
+
+</div>
